@@ -35,7 +35,22 @@ class Autor
     
     public function get($id)
     {
-        //TODO
+        try
+		{
+			$result = array();                        
+            $stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM autors where id_aut=:id_aut");
+            $stm->bindValue(':id_aut',$id);
+			$stm->execute();
+            $tupla=$stm->fetch();
+            $this->resposta->setDades($tupla);    // array de tuples
+			$this->resposta->setCorrecta(true);       // La resposta es correcta        
+            return $this->resposta;
+		}
+        catch(Exception $e)
+		{   // hi ha un error posam la resposta a fals i tornam missatge d'error
+			$this->resposta->setCorrecta(false, $e->getMessage());
+            return $this->resposta;
+		}
     }
 
     
