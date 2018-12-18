@@ -19,7 +19,7 @@ class Llibre
 		try
 		{
 			$result = array();                        
-			$stm = $this->conn->prepare("SELECT * FROM autors ORDER BY $orderby");
+			$stm = $this->conn->prepare("SELECT ID_LLIB,TITOL,ISBN FROM LLIBRES ORDER BY $orderby");
 			$stm->execute();
             $tuples=$stm->fetchAll();
             $this->resposta->setDades($tuples);    // array de tuples
