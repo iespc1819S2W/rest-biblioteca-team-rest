@@ -38,8 +38,8 @@ class Llibre
         try
 		{
 			$result = array();                        
-            $stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM autors where id_aut=:id_aut");
-            $stm->bindValue(':id_aut',$id);
+            $stm = $this->conn->prepare("SELECT ID_LLIB,TITOL,ISBN FROM LLIBRES where id_LLIB=:id_LLIB");
+            $stm->bindValue(':id_LLIB',$id);
 			$stm->execute();
             $tupla=$stm->fetch();
             $this->resposta->setDades($tupla);    // array de tuples
