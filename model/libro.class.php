@@ -38,7 +38,7 @@ class Llibre
         try
 		{
 			$result = array();                        
-            $stm = $this->conn->prepare("SELECT id_llib,titol,numedicio,llocedicio,anyedicio,descrip_llib,isbm,desplegal,signtop,databaixa_llib,motiubaixa,fk_collecio,fk_departament,fk_ideit FROM autors ORDER BY $orderby");
+            $stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM autors where id_aut=:id_aut");
             $stm->bindValue(':id_aut',$id);
 			$stm->execute();
             $tupla=$stm->fetch();
