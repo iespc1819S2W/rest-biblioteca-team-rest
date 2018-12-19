@@ -58,22 +58,51 @@ class Llibre
     {
 		try 
 		{
-                $sql = "SELECT max(id_aut) as N from autors";
+                $sql = "SELECT max(id_llib) as N from LLIBRES";
                 $stm=$this->conn->prepare($sql);
                 $stm->execute();
                 $row=$stm->fetch();
-                $id_aut=$row["N"]+1;
-                $nom_aut=$data['nom_aut'];
-                $fk_nacionalitat=$data['fk_nacionalitat'];
+            $id_llibre=$row["N"]+1;
+            $titol=$data["titol"];
+            $numedicio=$data["numedicio"];
+            $llocedicio=$data["llocedicio"];
+            $anyedicio=$data["anyedicio"];
+            $descrip_llib=$data["descrip_llib"];
+            $isbn=$data["isbn"];
+            $deplegal=$data["deplegal"];
+            $signtop=$data["signtop"];
+            $databaixa_llib=$data["databaixa_llib"];
+            $motiubaixa=$data["motiubaixa"];
+            $fk_coleccio=$data["fk_coleccio"];
+            $fk_departament=$data["fk_departament"];
+            $fk_idedit=$data["fk_idedit"];
+            $fk_llengua=$data["fk_llengua"];
+            $img_llib=$data["img_llib"];
 
-                $sql = "INSERT INTO autors
-                            (id_aut,nom_aut,fk_nacionalitat)
-                            VALUES (:id_aut,:nom_aut,:fk_nacionalitat)";
+                $sql = " INSERT INTO LLIBRES (ID_LLIB, TITOL, NUMEDICIO, LLOCEDICIO, 
+                          ANYEDICIO, DESCRIP_LLIB, ISBN, DEPLEGAL, SIGNTOP, DATBAIXA_LLIB, MOTIUBAIXA, 
+                          FK_COLLECCIO, FK_DEPARTAMENT, FK_IDEDIT, FK_LLENGUA, IMG_LLIB) VALUES
+                            VALUES (:id_llib,:titol,:numedicio,:llocedicio,:anyedicio,
+                            :descrip_llib,:isbn,:deplegal,:signtop,:databaixa_llib,:motiubaixa,:
+                          fk_coleccio,:fk_departament,:fk_idedit,:fk_llengua,:img_llib)";
                 
                 $stm=$this->conn->prepare($sql);
-                $stm->bindValue(':id_aut',$id_aut);
-                $stm->bindValue(':nom_aut',$nom_aut);
-                $stm->bindValue(':fk_nacionalitat',!empty($fk_nacionalitat)?$fk_nacionalitat:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':id_llib',$id_llibre);
+                $stm->bindValue(':titol',$titol);
+                $stm->bindValue(':numedicio',!empty($numedicio)?$numedicio:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':llocedicio',!empty($llocedicio)?$llocedicio:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':anyedicio',!empty($anyedicio)?$anyedicio:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':descrip_llib',!empty($descrip_llib)?$descrip_llib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':isbn',!empty($isbn)?$isbn:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':deplegal',!empty($deplegal)?$deplegal:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':signtop',!empty($signtop)?$signtop:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':databaixa_llib',!empty($databaixa_llib)?$databaixa_llib:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':motiubaixa',!empty($motiubaixa)?$motiubaixa:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_coleccio',!empty($fk_coleccio)?$fk_coleccioio:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_departament',!empty($fk_departament)?$fk_departament:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_idedit',!empty($fk_idedit)?$fk_idedit:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_llengua',!empty($fk_llengua)?$fk_llengua:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':img_llib',!empty($img_llib)?$img_llib:NULL,PDO::PARAM_STR);
                 $stm->execute();
             
        	        $this->resposta->setCorrecta(true);

@@ -19,7 +19,7 @@ class Autor
 		try
 		{
 			$result = array();                        
-			$stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM autors ORDER BY $orderby");
+			$stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM AUTORS ORDER BY $orderby");
 			$stm->execute();
             $tuples=$stm->fetchAll();
             $this->resposta->setDades($tuples);    // array de tuples
@@ -38,7 +38,7 @@ class Autor
         try
 		{
 			$result = array();                        
-            $stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM autors where id_aut=:id_aut");
+            $stm = $this->conn->prepare("SELECT id_aut,nom_aut,fk_nacionalitat FROM AUTORS where id_aut=:id_aut");
             $stm->bindValue(':id_aut',$id);
 			$stm->execute();
             $tupla=$stm->fetch();
@@ -102,6 +102,28 @@ class Autor
     {
         // TODO
     }
-    
+
+    public function autorsllibre($id)
+    {
+        try
+        {
+            $result = array();
+            $stm = $this->conn->prepare("SELECT NOM_AUT,llib.ID_LLIB,llib.TITOL from AUTORS au
+            left join LLI_AUT llia on au.ID_AUT=llia.FK_IDAUT
+            left join LLIBRES llib on llia.FK_IDLLIB=llib.ID_LLIB where id_LLIB=:id_LLIB");
+
+            $stm->bindValue(':id_LLIB',$id);
+            $stm->execute();
+            $tupla=$stm->fetch();
+            $this->resposta->setDades($tupla);    // array de tuples
+            $this->resposta->setCorrecta(true);       // La resposta es correcta
+            return $this->resposta;
+        }
+        catch(Exception $e)
+        {   // hi ha un error posam la resposta a fals i tornam missatge d'error
+            $this->resposta->setCorrecta(false, $e->getMessage());
+            return $this->resposta;
+        }
+    }
           
 }
