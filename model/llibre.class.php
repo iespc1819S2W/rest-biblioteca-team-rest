@@ -100,7 +100,60 @@ class Llibre
 
     public function filtra($where,$orderby,$offset,$count)
     {
-        // TODO
+               try {
+            $bWhere=true;
+            $limit=false;
+            $bOffset=false;
+            $sql="SELECT * from LLIBRES";
+            if(strlen($where)==0){
+                $bWhere=false;
+            } else {
+                $sql=$sql." WHERE titol like :w";
+            }
+            
+            if(strlen($orderby)==0){
+            } else {
+                $orderby = filter_var($orderby, FILTER_SANITIZE_STRING);
+                $sql=$sql." ORDER BY $orderby";
+            }
+
+
+            if($count!=""){
+                $limit=true;
+                if($offset!=""){
+                    $bOffset=true;
+                    $sql=$sql." limit :offset,:count";
+                } else {
+                    $sql=$sql." limit :count";
+                }
+            }
+             $stm=$this->conn->prepare($sql);
+ 
+             if($bWhere){
+                $stm->bindValue(':w','%'.$where.'%');
+             }
+             if($limit){
+                $count=(int)$count;
+                $stm->bindValue(':count',$count,PDO::PARAM_INT); 
+            }
+            if($bOffset){
+                $offset=(int)$offset;
+                 $stm->bindValue(':offset',$offset,PDO::PARAM_INT); 
+            }
+            
+            $stm->execute();
+            $tuples=$stm->fetchAll();
+
+
+
+            
+            $this->resposta->setDades($tuples); 
+            $this->resposta->setCorrecta(true);           
+            return $this->resposta;
+        } catch (Exeption $e){
+            $this->resposta->setCorrecta(false, "Error insertant: ".$e->getMessage());
+                return $this->resposta;
+        }
     }
     
           
