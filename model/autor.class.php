@@ -103,21 +103,22 @@ class Autor
         // TODO
     }
 
-    public function autorsllibre($id)
+    public function autorsllibre($id_llibre)
     {
         try
         {
             $result = array();
-            $stm = $this->conn->prepare("SELECT NOM_AUT,llib.ID_LLIB,llib.TITOL from AUTORS au
+            $stm = $this->conn->prepare("SELECT llib.ID_LLIB,llib.TITOL,NOM_AUT as Autors from AUTORS au
             left join LLI_AUT llia on au.ID_AUT=llia.FK_IDAUT
-            left join LLIBRES llib on llia.FK_IDLLIB=llib.ID_LLIB where id_LLIB=:id_LLIB");
+            left join LLIBRES llib on llia.FK_IDLLIB=llib.ID_LLIB where llib.id_LLIB=:id_LLIB");
 
-            $stm->bindValue(':id_LLIB',$id);
+            $stm->bindValue(':id_LLIB',$id_llibre);
             $stm->execute();
-            $tupla=$stm->fetch();
+            $tupla=$stm->fetchAll();
             $this->resposta->setDades($tupla);    // array de tuples
             $this->resposta->setCorrecta(true);       // La resposta es correcta
             return $this->resposta;
+
         }
         catch(Exception $e)
         {   // hi ha un error posam la resposta a fals i tornam missatge d'error
