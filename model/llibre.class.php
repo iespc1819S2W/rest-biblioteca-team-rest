@@ -86,6 +86,7 @@ class Llibre
 		}
     }   
     
+    
     public function update($data)
     {
         // TODO
@@ -156,5 +157,32 @@ class Llibre
         }
     }
     
-          
+    public function insertAutLlib($data)
+    {
+		try 
+		{
+                $fk_idllib=(int)$data['id_llib'];
+                $fk_idaut=(int)$data['id_aut'];
+                $fk_rolaut=$data['rolaut'];
+
+                $sql = "INSERT INTO lli_aut
+                            (fk_idllib,fk_idaut,fk_rolaut)
+                            VALUES (:fk_idllib,:fk_idllib,:fk_rolaut)";
+                
+                $stm=$this->conn->prepare($sql);
+                $stm->bindValue(':fk_idllib',$fk_idllib);
+                $stm->bindValue(':fk_idaut',$fk_idaut);
+                $stm->bindValue(':fk_rolaut',!empty($fk_rolaut)?$fk_rolaut:NULL,PDO::PARAM_STR);
+                $stm->execute();
+            
+       	        $this->resposta->setCorrecta(true);
+                return $this->resposta;
+        }
+        catch (Exception $e) 
+		{
+                $this->resposta->setCorrecta(false, "Error insertant: ".$e->getMessage());
+                return $this->resposta;
+		}
+    }
+      
 }
