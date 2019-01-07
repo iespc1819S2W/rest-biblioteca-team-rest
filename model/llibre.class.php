@@ -194,7 +194,7 @@ class Llibre
                 $fk_idaut=(int)$data['id_aut'];
                 $fk_rolaut=$data['rolaut'];
 
-                $sql = "INSERT INTO lli_aut
+                $sql = "INSERT INTO LLI_AUT
                             (fk_idllib,fk_idaut,fk_rolaut)
                             VALUES (:fk_idllib,:fk_idaut,:fk_rolaut)";
                 
@@ -221,7 +221,7 @@ class Llibre
             $fk_idllib=(int)$data['id_llib'];
             $fk_idaut=(int)$data['id_aut'];
             
-            $sql = "DELETE FROM lli_aut
+            $sql = "DELETE FROM LLI_AUT
                     WHERE lli_aut.FK_IDLLIB = :fk_idllib AND
                     lli_aut.FK_IDAUT = :fk_idaut";
             
