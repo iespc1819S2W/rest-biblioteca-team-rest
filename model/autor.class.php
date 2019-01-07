@@ -189,9 +189,9 @@ class Autor
         try
         {
             $result = array();
-            $stm = $this->conn->prepare("SELECT llib.ID_LLIB,llib.TITOL,NOM_AUT as Autors from AUTORS au
-            left join LLI_AUT llia on au.ID_AUT=llia.FK_IDAUT
-            left join LLIBRES llib on llia.FK_IDLLIB=llib.ID_LLIB where llib.id_LLIB=:id_LLIB");
+            $stm = $this->conn->prepare("SELECT au.ID_AUT,NOM_AUT as Autors from AUTORS au
+            INNER join LLI_AUT llia on au.ID_AUT=llia.FK_IDAUT
+            INNER join LLIBRES llib on llia.FK_IDLLIB=llib.ID_LLIB where llib.id_LLIB=:id_LLIB");
 
             $stm->bindValue(':id_LLIB',$id_llibre);
             $stm->execute();
