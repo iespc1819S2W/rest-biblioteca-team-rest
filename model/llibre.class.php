@@ -181,7 +181,7 @@ class Llibre
             $this->resposta->setCorrecta(true);           
             return $this->resposta;
         } catch (Exeption $e){
-            $this->resposta->setCorrecta(false, "Error insertant: ".$e->getMessage());
+            $this->resposta->setCorrecta(false, "Error select: ".$e->getMessage());
                 return $this->resposta;
         }
     }
@@ -236,7 +236,7 @@ class Llibre
         }
         catch (Exception $e) 
 	{
-            $this->resposta->setCorrecta(false, "Error insertant: ".$e->getMessage());
+            $this->resposta->setCorrecta(false, "Error borrant: ".$e->getMessage());
             return $this->resposta;
 	}
     }
