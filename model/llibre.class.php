@@ -222,8 +222,8 @@ class Llibre
             $fk_idaut=(int)$data['id_aut'];
             
             $sql = "DELETE FROM LLI_AUT
-                    WHERE lli_aut.FK_IDLLIB = :fk_idllib AND
-                    lli_aut.FK_IDAUT = :fk_idaut";
+                    WHERE FK_IDLLIB = :fk_idllib AND
+                    FK_IDAUT = :fk_idaut";
             
             $stm=$this->conn->prepare($sql);
             $stm->bindValue(':fk_idllib',$fk_idllib);
