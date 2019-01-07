@@ -167,7 +167,7 @@ class Llibre
 
                 $sql = "INSERT INTO lli_aut
                             (fk_idllib,fk_idaut,fk_rolaut)
-                            VALUES (:fk_idllib,:fk_idllib,:fk_rolaut)";
+                            VALUES (:fk_idllib,:fk_idaut,:fk_rolaut)";
                 
                 $stm=$this->conn->prepare($sql);
                 $stm->bindValue(':fk_idllib',$fk_idllib);
