@@ -63,28 +63,28 @@ class Llibre
                 $stm->execute();
                 $row=$stm->fetch();
             $id_llibre=$row["N"]+1;
-            $titol=$data["titol"];
-            $numedicio=$data["numedicio"];
-            $llocedicio=$data["llocedicio"];
-            $anyedicio=$data["anyedicio"];
-            $descrip_llib=$data["descrip_llib"];
-            $isbn=$data["isbn"];
-            $deplegal=$data["deplegal"];
-            $signtop=$data["signtop"];
-            $databaixa_llib=$data["databaixa_llib"];
-            $motiubaixa=$data["motiubaixa"];
-            $fk_coleccio=$data["fk_coleccio"];
-            $fk_departament=$data["fk_departament"];
-            $fk_idedit=$data["fk_idedit"];
-            $fk_llengua=$data["fk_llengua"];
-            $img_llib=$data["img_llib"];
+            $titol=$data['titol'];
+            $numedicio=$data['numedicio'];
+            $llocedicio=$data['llocedicio'];
+            $anyedicio=$data['anyedicio'];
+            $descrip_llib=$data['descrip_llib'];
+            $isbn=$data['isbn'];
+            $deplegal=$data['deplegal'];
+            $signtop=$data['signtop'];
+            $databaixa_llib=$data['databaixa_llib'];
+            $motiubaixa=$data['motiubaixa'];
+            $fk_coleccio=$data['fk_coleccio'];
+            $fk_departament=$data['fk_departament'];
+            $fk_idedit=$data['fk_idedit'];
+            $fk_llengua=$data['fk_llengua'];
+            $img_llib=$data['img_llib'];
 
                 $sql = " INSERT INTO LLIBRES (ID_LLIB, TITOL, NUMEDICIO, LLOCEDICIO, 
                           ANYEDICIO, DESCRIP_LLIB, ISBN, DEPLEGAL, SIGNTOP, DATBAIXA_LLIB, MOTIUBAIXA, 
-                          FK_COLLECCIO, FK_DEPARTAMENT, FK_IDEDIT, FK_LLENGUA, IMG_LLIB) VALUES
+                          FK_COLLECCIO, FK_DEPARTAMENT, FK_IDEDIT, FK_LLENGUA, IMG_LLIB)
                             VALUES (:id_llib,:titol,:numedicio,:llocedicio,:anyedicio,
-                            :descrip_llib,:isbn,:deplegal,:signtop,:databaixa_llib,:motiubaixa,:
-                          fk_coleccio,:fk_departament,:fk_idedit,:fk_llengua,:img_llib)";
+                            :descrip_llib,:isbn,:deplegal,:signtop,:databaixa_llib,:motiubaixa,
+                            :fk_coleccio,:fk_departament,:fk_idedit,:fk_llengua,:img_llib)";
                 
                 $stm=$this->conn->prepare($sql);
                 $stm->bindValue(':id_llib',$id_llibre);
@@ -98,7 +98,7 @@ class Llibre
                 $stm->bindValue(':signtop',!empty($signtop)?$signtop:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':databaixa_llib',!empty($databaixa_llib)?$databaixa_llib:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':motiubaixa',!empty($motiubaixa)?$motiubaixa:NULL,PDO::PARAM_STR);
-                $stm->bindValue(':fk_coleccio',!empty($fk_coleccio)?$fk_coleccioio:NULL,PDO::PARAM_STR);
+                $stm->bindValue(':fk_coleccio',!empty($fk_coleccio)?$fk_coleccio:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_departament',!empty($fk_departament)?$fk_departament:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_idedit',!empty($fk_idedit)?$fk_idedit:NULL,PDO::PARAM_STR);
                 $stm->bindValue(':fk_llengua',!empty($fk_llengua)?$fk_llengua:NULL,PDO::PARAM_STR);

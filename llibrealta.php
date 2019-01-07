@@ -2,8 +2,7 @@
 $base = __DIR__;
 require_once("$base/model/llibre.class.php");
 $llibre=new Llibre();
-if (isset($_POST["id_llib"])) {
-    $id_llibre=$_POST["id_llib"];
+if (isset($_POST["titol"])) {
     $titol=isset($_POST["titol"])?$_POST["titol"]:'';
     $numedicio=isset($_POST["numedicio"])?$_POST["numedicio"]:'';
     $llocedicio=isset($_POST["llocedicio"])?$_POST["llocedicio"]:'';
@@ -20,13 +19,14 @@ if (isset($_POST["id_llib"])) {
     $fk_llengua=isset($_POST["fk_llengua"])?$_POST["fk_llengua"]:'';
     $img_llib=isset($_POST["img_llib"])?$_POST["img_llib"]:'';
 
-    $res=$autor->insert(array("id_llib"=>$id_llibre,"titol"=>$titol,"numedicio"=>$numedicio,"llocedicio"=>$llocedicio,
-        "anyedicio"=>$anyedicio,"descrip_llib"=>$descrip_llib,"isbn"=>$isbn,"desplegal"=>$deplegal,"signtop"=>$signtop,
+    $res=$llibre->insert(array("titol"=>$titol,"numedicio"=>$numedicio,"llocedicio"=>$llocedicio,
+        "anyedicio"=>$anyedicio,"descrip_llib"=>$descrip_llib,"isbn"=>$isbn,"deplegal"=>$deplegal,"signtop"=>$signtop,
         "databaixa_llib"=>$databaixa_llib,"motiubaixa"=>$motiubaixa,"fk_coleccio"=>$fk_coleccio,"fk_departament"=>$fk_departament,
         "fk_idedit"=>$fk_idedit,"fk_llengua"=>$fk_llengua,"img_llib"=>$img_llib));
 } else {
     $res=new Resposta();
-    $res->SetCorrecta(false,"nom_aut requerit");
+    $res->SetCorrecta(false,"Titol Llibre requerit");
 }
+
 header('Content-type: application/json');
 echo json_encode($res);
