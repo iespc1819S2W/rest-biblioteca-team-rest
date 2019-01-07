@@ -214,4 +214,30 @@ class Llibre
 		}
     }
       
+    public function deleteAutLlib($data)
+    {
+        try 
+        {
+            $fk_idllib=(int)$data['id_llib'];
+            $fk_idaut=(int)$data['id_aut'];
+            
+            $sql = "DELETE FROM lli_aut
+                    WHERE lli_aut.FK_IDLLIB = :fk_idllib AND
+                    lli_aut.FK_IDAUT = :fk_idaut";
+            
+            $stm=$this->conn->prepare($sql);
+            $stm->bindValue(':fk_idllib',$fk_idllib);
+            $stm->bindValue(':fk_idaut',$fk_idaut);
+            
+            $stm->execute();
+            
+       	    $this->resposta->setCorrecta(true);
+            return $this->resposta;
+        }
+        catch (Exception $e) 
+	{
+            $this->resposta->setCorrecta(false, "Error insertant: ".$e->getMessage());
+            return $this->resposta;
+	}
+    }
 }
