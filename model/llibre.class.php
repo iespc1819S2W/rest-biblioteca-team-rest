@@ -115,17 +115,87 @@ class Llibre
 		}
     }   
     
-    
+  
     public function update($data)
     {
-        // TODO
+       try{  
+           $id_llib = $data["id_llib"];
+           $nomLlibre = $data["titol"];
+           $numEdicio = $data["numEdicio"];
+           $llocedicio = $data["llocedicio"];
+           $anyedicio = $data["anyedicio"];
+           $descrip_llib = $data["descrip_llib"];
+           $isbn = $data["isbn"];
+           $deplegal = $data["deplegal"];
+           $signtop = $data["signtop"];
+           $datbaixa_llib = $data["datbaixa_llib"];
+           $motiubaixa = $data["motiubaixa"];
+           $fk_colleccio = $data["fk_colleccio"];
+           $fk_departament = $data["fk_departament"];
+           $fk_idedit = $data["fk_idedit"];
+           $fk_llengua = $data["fk_llengua"];
+           $img_llib = $data["img_llib"];
+
+           $sql = "UPDATE LLIBRES SET
+            titol = :nomLlibre,
+            numEdicio = :numEdicio,
+            llocedicio = :llocedicio,
+            anyedicio = :anyedicio,
+            descrip_llib = :descrip_llib,
+            isbn = :isbn,
+            deplegal = :deplegal,
+            signtop = :signtop,
+            datbaixa_llib = :datbaixa_llib,
+            motiubaixa = :motiubaixa,
+            fk_colleccio = :fk_colleccio,
+            fk_departament =:fk_departament, 
+            fk_idedit = :fk_idedit,
+            fk_llengua = :fk_llengua, 
+            img_llib = :img_llib
+            WHERE id_llib = :id_llib";
+
+           $stm=$this->conn->prepare($sql);
+           $stm->bindValue(':id_llib', $id_llib);
+           $stm->bindValue(':nomLlibre', $nomLlibre);
+           $stm->bindValue(':numEdicio', $numEdicio);
+           $stm->bindValue(':llocedicio', $llocedicio);
+           $stm->bindValue(':anyedicio', $anyedicio);
+           $stm->bindValue(':descrip_llib', $descrip_llib);
+           $stm->bindValue(':isbn', $isbn);
+           $stm->bindValue(':deplegal', $deplegal);
+           $stm->bindValue(':signtop', $signtop);
+           $stm->bindValue(':datbaixa_llib',$datbaixa_llib);
+           $stm->bindValue(':motiubaixa', $motiubaixa);
+           $stm->bindValue(':fk_colleccio',!empty($fk_colleccio)?$fk_colleccio:NULL,PDO::PARAM_STR);
+           $stm->bindValue(':fk_departament',!empty($fk_departament)?$fk_departament:NULL,PDO::PARAM_STR);
+           $stm->bindValue(':fk_idedit', !empty($fk_idedit)?$fk_idedit:NULL,PDO::PARAM_STR);
+           $stm->bindValue(':fk_llengua',!empty($fk_llengua)?$fk_llengua:NULL,PDO::PARAM_STR);
+           $stm->bindValue(':img_llib', $img_llib);
+           $stm->execute();
+           $this->resposta->setCorrecta(true);
+            return $this->resposta;
+       }
+       catch (Exeption $e)
+        {
+             $this->resposta->setCorrecta(false, "Error actualitzant: ".$e->getMessage());
+                return $this->resposta;
+        }
     }
 
-    
-    
-    public function delete($id)
+    public function delete($id_llib)
     {
-        // TODO
+        try {
+            $sql="DELETE from llibres where id_llib = :id_llib";
+            $stm=$this->conn->prepare($sql);
+            $stm->bindValue(':id_llib',$id_llib);
+            $stm->execute();
+              $this->resposta->setCorrecta(true);
+                return $this->resposta;
+
+        } catch (Exeption $e){
+             $this->resposta->setCorrecta(false, "Error ID incorrecte o no se ha pogut borrar: ".$e->getMessage());
+                return $this->resposta;
+        }
     }
 
     public function filtra($where,$orderby,$offset,$count)
